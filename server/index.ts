@@ -1,6 +1,10 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import { exec } from "child_process";
+import { promisify } from "util";
+
+const execAsync = promisify(exec);
 
 const app = express();
 app.use(express.json());
@@ -59,7 +63,40 @@ app.use((req, res, next) => {
   next();
 });
 
+async function runDatabaseMigration() {
+  // Only run migration in production (Railway)
+  if (process.env.NODE_ENV === "production" && process.env.DATABASE_URL) {
+    try {
+      log("🔄 Running database migration...");
+      const { stdout, stderr } = await execAsync('npx drizzle-kit push --config=drizzle.config.ts');
+      
+      if (stderr && !stderr.includes('warn')) {
+        log(`Migration stderr: ${stderr}`);
+      }
+      
+      log("✅ Database migration completed");
+      if (stdout) log(stdout);
+    } catch (error: any) {
+      log(`⚠️ Database migration note: ${error.message}`);
+      
+      // Don't fail if tables already exist or no changes needed
+      if (error.message.includes('already exists') || 
+          error.message.includes('no changes') ||
+          error.message.includes('up to date')) {
+        log("ℹ️ Database already up to date");
+      } else {
+        log("❌ Migration failed, starting server anyway...");
+      }
+    }
+  } else {
+    log("ℹ️ Skipping migration (development mode or no DATABASE_URL)");
+  }
+}
+
 (async () => {
+  // Run migration first in production
+  await runDatabaseMigration();
+  
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
@@ -79,10 +116,8 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
-  // ALWAYS serve the app on port 5000
-  // this serves both the API and the client.
-  // It is the only port that is not firewalled.
-  const port = 5000;
+  // Use Railway's PORT or default to 5000
+  const port = process.env.PORT || 5000;
   server.listen({
     port,
     host: "0.0.0.0",
