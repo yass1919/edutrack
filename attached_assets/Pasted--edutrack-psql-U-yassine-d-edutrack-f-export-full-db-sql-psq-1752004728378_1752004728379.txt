@@ -1,0 +1,65 @@
+ edutrack % psql -U yassine -d edutrack -f export_full_db.sql                                   
+psql:export_full_db.sql:12: ERROR:  duplicate key value violates unique constraint "subjects_code_unique"
+DETAIL:  Key (code)=(MATH) already exists.
+psql:export_full_db.sql:22: ERROR:  duplicate key value violates unique constraint "levels_code_unique"
+DETAIL:  Key (code)=(1AC) already exists.
+psql:export_full_db.sql:38: ERROR:  insert or update on table "classes" violates foreign key constraint "classes_level_id_levels_id_fk"
+DETAIL:  Key (level_id)=(9) is not present in table "levels".
+psql:export_full_db.sql:52: ERROR:  duplicate key value violates unique constraint "users_username_unique"
+DETAIL:  Key (username)=(admin) already exists.
+psql:export_full_db.sql:65: ERROR:  insert or update on table "teacher_assignments" violates foreign key constraint "teacher_assignments_subject_id_subjects_id_fk"
+DETAIL:  Key (subject_id)=(9) is not present in table "subjects".
+psql:export_full_db.sql:70: ERROR:  insert or update on table "inspector_assignments" violates foreign key constraint "inspector_assignments_inspector_id_users_id_fk"
+DETAIL:  Key (inspector_id)=(2) is not present in table "users".
+INSERT 0 1
+psql:export_full_db.sql:101: ERROR:  insert or update on table "chapters" violates foreign key constraint "chapters_subject_id_subjects_id_fk"
+DETAIL:  Key (subject_id)=(10) is not present in table "subjects".
+ setval 
+--------
+      2
+(1 row)
+
+ setval 
+--------
+     30
+(1 row)
+
+ setval 
+--------
+     56
+(1 row)
+
+ setval 
+--------
+     33
+(1 row)
+
+ setval 
+--------
+     39
+(1 row)
+
+ setval 
+--------
+      2
+(1 row)
+
+ setval 
+--------
+      2
+(1 row)
+
+ setval 
+--------
+       
+(1 row)
+
+yassineelghoumari@MAC-AIR-YASSINE edutrack % psql -U yassine -d edutrack
+
+psql (14.18 (Homebrew), server 14.17 (Homebrew))
+Type "help" for help.
+
+edutrack=> SELECT * FROM chapters;
+ id | name | subject_id | level_id | order_index | trimester 
+----+------+------------+----------+-------------+-----------
+(0 rows)

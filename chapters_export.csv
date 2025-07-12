@@ -1,0 +1,22 @@
+id,name,subject_id,level_id,order_index,trimester
+27,Matière et environnement,10,8,1,1
+28,Électricité,10,8,2,2
+29,L'air et l'environnement,10,9,1,1
+30,Réactions chimiques,10,9,2,2
+31,Mécanique et forces,10,10,1,1
+32,Optique et lumière,10,10,2,2
+33,Nombres et calcul,9,8,1,1
+34,Géométrie,9,8,2,2
+35,Algèbre et expressions,9,9,1,1
+36,Géométrie et mesures,9,9,2,2
+37,Fonctions et graphiques,9,10,1,1
+38,Théorème de Pythagore,9,10,2,2
+39,Trigonométrie,9,11,1,1
+40,Statistiques,9,11,2,2
+41,Dérivation,9,12,1,1
+42,Intégration,9,12,2,2
+43,Probabilités,9,13,1,1
+44,Géométrie dans l'espace,9,13,2,2
+45,probabilité,9,8,1,1
+46,probabilite,9,8,1,1
+47,test 1AC,9,8,1,1

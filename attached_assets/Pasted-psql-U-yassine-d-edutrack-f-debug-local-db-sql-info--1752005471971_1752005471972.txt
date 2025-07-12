@@ -1,0 +1,180 @@
+psql -U yassine -d edutrack -f debug_local_db.sql
+            info             
+-----------------------------
+ === MATIÈRES EXISTANTES ===
+(1 row)
+
+ id | code |      name       
+----+------+-----------------
+  1 | MATH | Mathématiques
+  2 | PC   | Physique-Chimie
+(2 rows)
+
+           info            
+---------------------------
+ === NIVEAUX EXISTANTS ===
+(1 row)
+
+ id |  code   |              name               
+----+---------+---------------------------------
+  1 | 1AC     | 1ère Année Collège
+  2 | 2AC     | 2ème Année Collège
+  3 | 3AC     | 3ème Année Collège
+  4 | TC      | Tronc Commun
+  5 | BAC1_SP | 1ère Bac Sciences Physiques
+  6 | BAC1_SM | 1ère Bac Sciences Mathématiques
+  7 | BAC2_SP | 2ème Bac Sciences Physiques
+  8 | BAC2_SM | 2ème Bac Sciences Mathématiques
+ 29 | BAC1    | BAC1
+ 30 | BAC2    | BAC2
+(10 rows)
+
+            info            
+----------------------------
+ === CLASSES EXISTANTES ===
+(1 row)
+
+ id |   name    | level_id 
+----+-----------+----------
+  1 | 1AC A     |        1
+  2 | 1AC B     |        1
+  3 | 2AC A     |        2
+  4 | 2AC B     |        2
+  5 | 3AC A     |        3
+  6 | 3AC B     |        3
+  7 | TC A      |        4
+  8 | TC B      |        4
+  9 | 1AC A     |        1
+ 10 | 1AC B     |        1
+ 11 | 2AC A     |        2
+ 12 | 2AC B     |        2
+ 13 | 3AC A     |        3
+ 14 | 3AC B     |        3
+ 15 | TC A      |        4
+ 16 | TC B      |        4
+ 17 | BAC1 SP A |        5
+ 18 | BAC1 SM A |        6
+ 19 | BAC2 SP A |        7
+ 20 | BAC2 SM A |        8
+ 21 | 1AC A     |        1
+ 22 | 1AC B     |        1
+ 23 | 2AC A     |        2
+ 24 | 2AC B     |        2
+ 25 | 3AC A     |        3
+ 26 | 3AC B     |        3
+ 27 | TC A      |        4
+ 28 | TC B      |        4
+ 29 | BAC1 SP A |        5
+ 30 | BAC1 SM A |        6
+ 31 | BAC2 SP A |        7
+ 32 | BAC2 SM A |        8
+ 33 | 1AC A     |        1
+ 34 | 1AC B     |        1
+ 35 | 2AC A     |        2
+ 36 | 2AC B     |        2
+ 37 | 3AC A     |        3
+ 38 | 3AC B     |        3
+ 39 | TC A      |        4
+ 40 | TC B      |        4
+ 41 | BAC1 SP   |       29
+ 42 | BAC1 SM   |       29
+ 43 | BAC2 SP   |       30
+ 44 | BAC2 SM   |       30
+ 45 | 1AC A     |        1
+ 46 | 1AC B     |        1
+ 47 | 2AC A     |        2
+ 48 | 2AC B     |        2
+ 49 | 3AC A     |        3
+ 50 | 3AC B     |        3
+ 51 | TC A      |        4
+ 52 | TC B      |        4
+ 53 | BAC1 SP   |       29
+ 54 | BAC1 SM   |       29
+ 55 | BAC2 SP   |       30
+ 56 | BAC2 SM   |       30
+(56 rows)
+
+              info              
+--------------------------------
+ === UTILISATEURS EXISTANTS ===
+(1 row)
+
+ id | username |   role    
+----+----------+-----------
+  1 | admin    | admin
+  4 | IN1      | inspector
+  5 | founder  | founder
+  6 | sg1      | sg
+  9 | PC1      | teacher
+ 31 | PC2      | teacher
+ 33 | PL1      | teacher
+(7 rows)
+
+            info             
+-----------------------------
+ === CHAPITRES EXISTANTS ===
+(1 row)
+
+ id |           name           | subject_id | level_id 
+----+--------------------------+------------+----------
+  8 | Matière et environnement |          2 |        1
+  9 | Électricité              |          2 |        1
+ 10 | Nombres et calcul        |          1 |        1
+ 11 | Géométrie                |          1 |        1
+ 12 | L'air et l'environnement |          2 |        2
+ 13 | Réactions chimiques      |          2 |        2
+ 14 | Algèbre et expressions   |          1 |        2
+ 15 | Géométrie et mesures     |          1 |        2
+ 16 | Mécanique et forces      |          2 |        3
+ 17 | Optique et lumière       |          2 |        3
+ 18 | Fonctions et graphiques  |          1 |        3
+ 19 | Théorème de Pythagore    |          1 |        3
+ 20 | Trigonométrie            |          1 |        4
+ 21 | Statistiques             |          1 |        4
+ 22 | Dérivation               |          1 |       29
+ 23 | Intégration              |          1 |       29
+ 24 | Probabilités             |          1 |       30
+ 25 | Géométrie dans l'espace  |          1 |       30
+(18 rows)
+
+               info               
+----------------------------------
+ === ASSIGNATIONS PROFESSEURS ===
+(1 row)
+
+ id | username | class_name |  subject_name   
+----+----------+------------+-----------------
+  1 | PC1      | 1AC A      | Mathématiques
+ 10 | PC1      | 1AC A      | Physique-Chimie
+ 11 | PC1      | 1AC B      | Physique-Chimie
+ 12 | PC1      | 1AC A      | Physique-Chimie
+ 13 | PC1      | 1AC B      | Physique-Chimie
+ 14 | PC1      | 1AC A      | Physique-Chimie
+ 15 | PC1      | 1AC B      | Physique-Chimie
+ 16 | PC1      | 1AC A      | Physique-Chimie
+ 17 | PC1      | 1AC B      | Physique-Chimie
+ 18 | PC2      | 3AC B      | Mathématiques
+ 19 | PC2      | BAC1 SM    | Mathématiques
+ 20 | PC1      | 1AC A      | Physique-Chimie
+ 21 | PC1      | 1AC B      | Physique-Chimie
+ 22 | PC1      | 1AC A      | Physique-Chimie
+ 23 | PC1      | 1AC B      | Physique-Chimie
+ 24 | PC1      | 1AC A      | Physique-Chimie
+ 25 | PC1      | 1AC B      | Physique-Chimie
+ 26 | PC1      | 1AC A      | Physique-Chimie
+ 27 | PC1      | 1AC B      | Physique-Chimie
+ 28 | PC1      | 1AC A      | Physique-Chimie
+ 29 | PC1      | 1AC B      | Physique-Chimie
+ 30 | PL1      | 1AC A      | Mathématiques
+ 31 | PL1      | 2AC A      | Mathématiques
+ 32 | PL1      | 1AC A      | Mathématiques
+ 33 | PL1      | 2AC A      | Mathématiques
+ 34 | PL1      | 1AC A      | Mathématiques
+ 35 | PL1      | 2AC A      | Mathématiques
+ 36 | PL1      | 1AC A      | Mathématiques
+ 37 | PL1      | 2AC A      | Mathématiques
+ 38 | PL1      | 1AC A      | Mathématiques
+ 39 | PL1      | 2AC A      | Mathématiques
+(31 rows)
+
+yassineelghoumari@MAC-AIR-YASSINE edutrack % 

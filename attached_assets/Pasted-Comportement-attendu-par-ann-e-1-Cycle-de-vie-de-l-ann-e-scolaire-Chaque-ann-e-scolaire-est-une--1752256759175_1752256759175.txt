@@ -1,0 +1,35 @@
+Comportement attendu par année :
+1. Cycle de vie de l'année scolaire
+
+Chaque année scolaire est une entité indépendante avec un identifiant unique (annee_scolaire_id) permettant de filtrer toutes les données.
+Une seule année peut être marquée comme "en cours" (statut = actif), les autres sont archivées.
+À la création d'une nouvelle année scolaire, certaines entités peuvent être :
+recopiées partiellement (ex. : niveaux ou enseignants permanents),
+reliées dynamiquement (ex. : affectations spécifiques à cette année),
+ou totalement neuves (nouvelles classes, nouvelles leçons, nouveaux profs).
+2. Gestion dynamique des entités
+
+Un professeur ou inspecteur peut :
+être actif une année, inactif l’année suivante (via un champ actif ou historique_affectation),
+être affecté à différentes classes selon l’année scolaire (relation N:N avec pivot annee_scolaire_id).
+Une leçon peut être associée à un niveau pour une année donnée (programme_pedagogique), permettant l’évolution du contenu pédagogique d’année en année.
+Une classe peut changer de niveau, ou être renommée d’une année à l’autre.
+Les niveaux sont globalement stables, mais leur contenu pédagogique ou structure peut évoluer par an.
+3. Archivage et continuité
+
+Toutes les actions (ajouts, suppressions, modifications) sont horodatées et versionnées par année scolaire.
+Les modules de reporting ou historique doivent permettre de filtrer les entités par année, ex. : voir les classes d’un prof en 2022-2023.
+Le développeur doit s’assurer que toute nouvelle donnée est contextuellement liée à une année scolaire, sauf cas explicitement "hors temps" (ex. compte administrateur).
+🔐 Contraintes techniques
+Intégrité référentielle entre annee_scolaire_id et les entités dépendantes (classes, leçons, affectations).
+Eviter les duplications involontaires de données partagées entre années (ex : le même professeur utilisé dans deux années ≠ deux objets différents).
+La logique de duplication ou d’initiation de l’année suivante peut se faire via :
+un assistant d’initiation d’année (avec options de copie),
+ou un script backend sécurisé.
+💡 Exemple d'usage :
+Lorsqu’un administrateur crée l’année 2025–2026 :
+Les niveaux pédagogiques sont importés de l’année précédente.
+Il choisit de ne pas recopier les classes pour les recréer manuellement.
+De nouveaux professeurs peuvent être créés et affectés aux nouvelles classes.
+Les leçons sont réaffectées aux niveaux avec possibilité d’ajout ou suppression.
+Les anciennes données restent consultables (en lecture seule).
