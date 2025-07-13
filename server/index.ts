@@ -72,39 +72,16 @@ app.use((req, res, next) => {
   next();
 });
 
-async function runDatabaseMigration() {
-  // Only run migration in production (Railway)
-  if (process.env.NODE_ENV === "production" && process.env.DATABASE_URL) {
-    try {
-      log("🔄 Running database migration...");
-      const { stdout, stderr } = await execAsync('npx drizzle-kit push --config=drizzle.config.ts');
-      
-      if (stderr && !stderr.includes('warn')) {
-        log(`Migration stderr: ${stderr}`);
-      }
-      
-      log("✅ Database migration completed");
-      if (stdout) log(stdout);
-    } catch (error: any) {
-      log(`⚠️ Database migration note: ${error.message}`);
-      
-      // Don't fail if tables already exist or no changes needed
-      if (error.message.includes('already exists') || 
-          error.message.includes('no changes') ||
-          error.message.includes('up to date')) {
-        log("ℹ️ Database already up to date");
-      } else {
-        log("❌ Migration failed, starting server anyway...");
-      }
-    }
-  } else {
-    log("ℹ️ Skipping migration (development mode or no DATABASE_URL)");
-  }
-}
-
 (async () => {
-  // Run migration first in production
-  await runDatabaseMigration();
+  // Simple database check in production
+  if (process.env.NODE_ENV === "production") {
+    log("🚀 Starting in production mode");
+    if (process.env.DATABASE_URL) {
+      log("✅ DATABASE_URL found");
+    } else {
+      log("⚠️ DATABASE_URL not found");
+    }
+  }
   
   const server = await registerRoutes(app);
 
