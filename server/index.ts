@@ -10,6 +10,15 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Healthcheck endpoint for Railway
+app.get("/", (req, res) => {
+  res.json({ status: "ok", message: "EduTrack API is running" });
+});
+
+app.get("/health", (req, res) => {
+  res.json({ status: "healthy", timestamp: new Date().toISOString() });
+});
+
 // Simple in-memory auth store
 export const authStore = new Map<string, number>();
 
@@ -117,12 +126,8 @@ async function runDatabaseMigration() {
   }
 
   // Use Railway's PORT or default to 5000
-  const port = process.env.PORT || 5000;
-  server.listen({
-    port,
-    host: "0.0.0.0",
-    reusePort: true,
-  }, () => {
+  const port = parseInt(process.env.PORT || "5000", 10);
+  server.listen(port, "0.0.0.0", () => {
     log(`serving on port ${port}`);
   });
 })();
