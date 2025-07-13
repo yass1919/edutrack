@@ -5,9 +5,9 @@
     "buildCommand": "npm install && npm run build"
   },
   "deploy": {
-    "startCommand": "npm start",
+    "startCommand": "node server/railway.js",
     "healthcheckPath": "/health",
-    "healthcheckTimeout": 300,
+    "healthcheckTimeout": 180,
     "restartPolicyType": "ON_FAILURE"
   }
 }
