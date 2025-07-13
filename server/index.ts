@@ -10,13 +10,13 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Healthcheck endpoint for Railway
+// Healthcheck endpoints for Railway
 app.get("/", (req, res) => {
-  res.json({ status: "ok", message: "EduTrack API is running" });
+  res.json({ status: "ok", message: "EduTrack API is running", timestamp: new Date().toISOString() });
 });
 
 app.get("/health", (req, res) => {
-  res.json({ status: "healthy", timestamp: new Date().toISOString() });
+  res.json({ status: "healthy", timestamp: new Date().toISOString(), env: process.env.NODE_ENV });
 });
 
 // Simple in-memory auth store
